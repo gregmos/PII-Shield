@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+.test_venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code
+.claude/
+
+# Test artifacts
+*.output
+
+# Old versions
+pii-shield-v5.3.*.mcpb

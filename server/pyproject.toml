@@ -1,0 +1,19 @@
+[project]
+name = "pii-shield"
+version = "5.5.0"
+description = "PII Shield MCP Server — GLiNER zero-shot NER for legal document PII detection, self-bootstrapping"
+requires-python = ">=3.10"
+
+dependencies = [
+    "presidio-analyzer>=2.2.355",
+    "torch>=2.0.0",
+    "gliner>=0.2.7",
+    "numpy>=1.24.0",
+    "spacy>=3.7.0",
+    "python-docx>=1.1.0",
+    "mcp[cli]>=1.0.0",
+    "cryptography>=42.0.0",
+]
+
+[project.scripts]
+pii-shield = "pii_shield_server:main"

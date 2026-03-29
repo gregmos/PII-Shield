@@ -1,0 +1,61 @@
+{
+  "manifest_version": "0.3",
+  "name": "pii-shield",
+  "display_name": "PII Shield",
+  "version": "5.5.0",
+  "description": "Anonymize PII in documents. GLiNER zero-shot NER for high-quality entity recognition in legal documents.",
+  "long_description": "PII Shield provides automated PII detection and anonymization for legal document analysis. v5.5 uses GLiNER (DeBERTa-v3 zero-shot NER) via Presidio's GLiNERRecognizer for high-quality named entity recognition — handles ALL-CAPS names, domain-specific company names, and legal document patterns. SpaCy handles tokenization, GLiNER handles NER. Falls back to SpaCy-only if GLiNER is unavailable. Also includes: fuzzy entity deduplication, prefix support for multi-file workflows, two-pass boundary cleanup with false-positive filtering, 17 EU pattern recognizers. Deanonymized output is written to local files only — PII never flows back through Claude.",
+  "author": {
+    "name": "Grigorii Moskalev",
+    "url": "https://www.linkedin.com/in/grigorii-moskalev/"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "server/pii_shield_server.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/server/pii_shield_server.py"
+      ],
+      "env": {
+        "PII_MIN_SCORE": "${user_config.pii_min_score}",
+        "PII_GLINER_MODEL": "${user_config.gliner_model}"
+      }
+    }
+  },
+  "tools": [
+    {"name": "anonymize_text", "description": "Anonymize PII in text"},
+    {"name": "anonymize_file", "description": "Anonymize PII in a file (.docx, .txt, .md, .csv)"},
+    {"name": "anonymize_docx", "description": "Anonymize PII in .docx preserving formatting"},
+    {"name": "deanonymize_text", "description": "Restore PII to local .docx file (never returns PII to Claude)"},
+    {"name": "deanonymize_docx", "description": "Restore PII in .docx preserving formatting (file only)"},
+    {"name": "get_mapping", "description": "Get placeholder keys and types (no real PII values)"},
+    {"name": "scan_text", "description": "Detect PII without anonymizing (preview mode)"},
+    {"name": "list_entities", "description": "Show status, supported types, and recent sessions"}
+  ],
+  "keywords": ["pii", "anonymize", "gdpr", "privacy", "legal", "presidio", "ner", "gliner", "zero-shot"],
+  "license": "MIT",
+  "user_config": {
+    "pii_min_score": {
+      "type": "string",
+      "title": "Minimum NER score",
+      "description": "Minimum confidence threshold (0.0-1.0)",
+      "default": "0.35",
+      "required": false
+    },
+    "gliner_model": {
+      "type": "string",
+      "title": "GLiNER NER model",
+      "description": "HuggingFace GLiNER model name for zero-shot NER",
+      "default": "urchade/gliner_small-v2.1",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["win32", "darwin", "linux"],
+    "runtimes": {
+      "python": ">=3.10.0 <4"
+    }
+  }
+}

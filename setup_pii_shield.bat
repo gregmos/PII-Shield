@@ -79,7 +79,7 @@ echo   Setup complete!
 echo   ==================================
 echo.
 echo   You can now install PII Shield in Claude Desktop:
-echo     1. Install pii-shield-v5.5.0.mcpb  (Settings ^> Extensions ^> Install extension)
+echo     1. Install pii-shield-v6.0.0.mcpb  (Settings ^> Extensions ^> Install extension)
 echo     2. Upload pii-contract-analyze.skill (Customize ^> Skills ^> Upload a skill)
 echo.
 echo   Everything will start instantly - no more waiting!

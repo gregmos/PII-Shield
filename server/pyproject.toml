@@ -1,6 +1,6 @@
 [project]
 name = "pii-shield"
-version = "5.5.0"
+version = "6.0.0"
 description = "PII Shield MCP Server — GLiNER zero-shot NER for legal document PII detection, self-bootstrapping"
 requires-python = ">=3.10"
 

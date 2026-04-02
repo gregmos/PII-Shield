@@ -256,18 +256,18 @@ _flog.propagate = False  # don't echo to stderr
 _flog_handler = None
 
 def _ensure_file_log(folder=None):
-    """Set up file logger in the given folder (or cache dir). Called once per session."""
+    """Set up NER log in ~/.pii_shield/audit/. Called once per session."""
     global _flog_handler
     if _flog_handler is not None:
         return
-    log_dir = Path(folder) if folder else Path.home() / ".pii_shield_cache"
+    log_dir = Path.home() / ".pii_shield" / "audit"
     log_dir.mkdir(parents=True, exist_ok=True)
-    log_path = log_dir / "pii_shield_debug.log"
+    log_path = log_dir / "ner_debug.log"
     _flog_handler = logging.FileHandler(str(log_path), mode="a", encoding="utf-8")
     _flog_handler.setFormatter(logging.Formatter("%(asctime)s %(message)s"))
     _flog.addHandler(_flog_handler)
     _flog.info(f"===== PII Shield session started =====")
-    log.info(f"Debug log: {log_path}")
+    log.info(f"NER log: {log_path}")
 
 # --- MCP audit logger: logs every tool request/response to prove no PII leaves the machine ---
 _audit_log = logging.getLogger("pii-shield-audit")

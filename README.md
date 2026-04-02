@@ -34,7 +34,7 @@ Document -> [PII Shield on HOST] -> output_path only -> [Claude: reads anonymize
 - **Zero PII in API** — `anonymize_file` returns only `output_path`. Claude reads the anonymized file from disk — real data never enters the API.
 - **212-term false positive filter** — Stoplist for contract roles, legal terms, generic nouns, abbreviations. Strips articles ("the Contractor" → "contractor"), checks multi-word phrases, handles Cyrillic homoglyphs.
 - **PDF + DOCX + tracked changes** — Handles `.pdf` (pdfplumber), `.docx` with formatting preservation, and `w:ins`/`w:del` in Word tracked changes.
-- **Diagnostic logging** — `pii_shield_debug.log` with raw NER detections, skip reasons, recognizer names, and full anonymization trace.
+- **Audit & NER logs** — Two local log files in `~/.pii_shield/audit/`: MCP audit log (every tool call/response — proof no PII leaves the machine) and NER debug log (raw detections, skip reasons, anonymization trace).
 
 ---
 
@@ -300,7 +300,7 @@ PII Shield writes two local log files. Neither is sent anywhere — both stay on
 | Log | Location | What's inside |
 |-----|----------|---------------|
 | **Audit log** | `~/.pii_shield/audit/mcp_audit.log` | Every MCP tool call and response. Proves that only file paths and session IDs flow through the API — no real names, addresses, or other PII. Hand this to your compliance team. |
-| **Debug log** | `pii_shield_debug.log` (in the output folder) | Raw NER detections, skip reasons, recognizer names, anonymization mapping, docx replacement details. Use this to diagnose why an entity was missed or incorrectly detected. |
+| **NER log** | `~/.pii_shield/audit/ner_debug.log` | Raw NER detections, skip reasons, recognizer names, anonymization mapping, docx replacement details. Use this to diagnose why an entity was missed or incorrectly detected. |
 
 ## Troubleshooting
 

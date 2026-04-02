@@ -4,7 +4,7 @@
   "display_name": "PII Shield",
   "version": "6.0.0",
   "description": "Anonymize PII in documents. GLiNER zero-shot NER for high-quality entity recognition in legal documents.",
-  "long_description": "PII Shield provides automated PII detection and anonymization for legal document analysis. v5.5 uses GLiNER (DeBERTa-v3 zero-shot NER) via Presidio's GLiNERRecognizer for high-quality named entity recognition — handles ALL-CAPS names, domain-specific company names, and legal document patterns. SpaCy handles tokenization, GLiNER handles NER. Falls back to SpaCy-only if GLiNER is unavailable. Also includes: fuzzy entity deduplication, prefix support for multi-file workflows, two-pass boundary cleanup with false-positive filtering, 17 EU pattern recognizers. Deanonymized output is written to local files only — PII never flows back through Claude.",
+  "long_description": "PII Shield provides automated PII detection and anonymization for legal document analysis. v6.0.0 uses GLiNER (DeBERTa-v3 zero-shot NER) via Presidio's GLiNERRecognizer for high-quality named entity recognition — handles ALL-CAPS names, domain-specific company names, and legal document patterns. SpaCy handles tokenization, GLiNER handles NER. Falls back to SpaCy-only if GLiNER is unavailable. Also includes: fuzzy entity deduplication, prefix support for multi-file workflows, two-pass boundary cleanup with false-positive filtering, 17 EU pattern recognizers. Deanonymized output is written to local files only — PII never flows back through Claude.",
   "author": {
     "name": "Grigorii Moskalev",
     "url": "https://www.linkedin.com/in/grigorii-moskalev/"

@@ -503,7 +503,7 @@ class PIIEngine:
             if _bootstrap_error:
                 log.warning(f"Bootstrap had errors: {_bootstrap_error}")
 
-        log.info("Initializing PII Engine v5.4.0 (lazy init on first use)...")
+        log.info("Initializing PII Engine v6.0.0 (lazy init on first use)...")
 
         # --- SpaCy NLP engine (tokenization only) ---
         from presidio_analyzer.nlp_engine import NlpEngineProvider

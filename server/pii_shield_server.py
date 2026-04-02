@@ -799,14 +799,19 @@ class PIIEngine:
         entities = cls._filter_false_positives(entities)
         return entities
 
-    def _analyze_chunked(self, text, language="en", chunk_size=800, overlap=100):
+    def _analyze_chunked(self, text, language="en", chunk_size=2500, overlap=200):
         """Run analyzer on text in chunks to avoid GLiNER timeout on long texts.
-        Chunks overlap to avoid splitting entities at boundaries."""
+        Chunks overlap to avoid splitting entities at boundaries.
+        chunk_size=2500 balances GLiNER accuracy vs total processing time."""
         if len(text) <= chunk_size:
             return self.analyzer.analyze(text=text, entities=SUPPORTED_ENTITIES, language=language)
 
         all_results = []
         start = 0
+        chunk_num = 0
+        total_chunks = (len(text) + chunk_size - 1) // chunk_size
+        _flog.info(f"  Chunked analysis: ~{total_chunks} chunks, chunk_size={chunk_size}, overlap={overlap}")
+        t_chunk_start = time.time()
         while start < len(text):
             end = min(start + chunk_size, len(text))
             # Try to break at whitespace
@@ -815,13 +820,17 @@ class PIIEngine:
                 if ws > start:
                     end = ws + 1
             chunk = text[start:end]
+            t0 = time.time()
             chunk_results = self.analyzer.analyze(text=chunk, entities=SUPPORTED_ENTITIES, language=language)
+            chunk_num += 1
+            _flog.info(f"    Chunk {chunk_num}/{total_chunks}: [{start}:{end}] ({end-start} chars) → {len(chunk_results)} detections in {time.time()-t0:.1f}s")
             # Adjust offsets to full text positions
             for r in chunk_results:
                 r.start += start
                 r.end += start
                 all_results.append(r)
             start = end - overlap if end < len(text) else len(text)
+        _flog.info(f"  Chunked analysis done: {chunk_num} chunks, {len(all_results)} raw detections in {time.time()-t_chunk_start:.1f}s")
 
         # Deduplicate overlapping detections (same span)
         seen = set()

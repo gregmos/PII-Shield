@@ -16,6 +16,7 @@ export const SUPPORTED_ENTITIES = [
   "IT_FISCAL_CODE", "IT_VAT",
   "ES_DNI", "ES_NIE",
   "CY_TIC", "CY_ID_CARD",
+  "FI_HETU", "FI_BUSINESS_ID",
   "MEDICAL_LICENSE",
 ] as const;
 
@@ -55,6 +56,8 @@ export const TAG_NAMES: Record<string, string> = {
   ES_NIE: "ES_NIE",
   CY_TIC: "CY_TIC",
   CY_ID_CARD: "CY_ID",
+  FI_HETU: "FI_HETU",
+  FI_BUSINESS_ID: "FI_YID",
   MEDICAL_LICENSE: "MED_LIC",
 };
 

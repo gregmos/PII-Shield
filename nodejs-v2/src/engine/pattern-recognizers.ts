@@ -415,6 +415,30 @@ function buildRecognizers(): RecognizerDef[] {
     context: ["company", "corporation", "entity", "incorporated", "registered", "firm"],
   });
 
+  // Finland — Henkilötunnus (HETU, personal identity code): DDMMYY + century
+  // marker + 3-digit individual number + control character.
+  // The control char is restricted to "0123456789ABCDEFHJKLMNPRSTUVWXY" (no G,I,O,Q),
+  // and the century marker to +,-,A-F,U,V,W,X,Y — so the shape is highly specific
+  // and false positives are rare even without checksum validation.
+  recognizers.push({
+    entityType: "FI_HETU",
+    patterns: [
+      { name: "fi_hetu", regex: /\b(?:0[1-9]|[12]\d|3[01])(?:0[1-9]|1[0-2])\d{2}[-+ABCDEFUVWXY]\d{3}[0-9A-FHJ-NPR-Y]\b/g, score: 0.85 },
+    ],
+    context: ["henkilötunnus", "hetu", "henkilötunnuksen", "syntymäaika", "personbeteckning", "personal identity code", "social security"],
+  });
+
+  // Finland — Y-tunnus (Business ID): 7 digits + hyphen + check digit.
+  // The bare shape \d{7}-\d is generic, so the base score is low and relies on
+  // context boost (+0.35) — mirroring DE_TAX_ID, FR_CNI, etc.
+  recognizers.push({
+    entityType: "FI_BUSINESS_ID",
+    patterns: [
+      { name: "fi_ytunnus", regex: /\b\d{7}-\d\b/g, score: 0.4 },
+    ],
+    context: ["y-tunnus", "ytunnus", "yritystunnus", "yhteisötunnus", "business id", "FO-nummer", "VAT", "company number", "organisation number"],
+  });
+
   return recognizers;
 }
 

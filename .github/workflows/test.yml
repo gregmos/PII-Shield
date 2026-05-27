@@ -39,3 +39,9 @@ jobs:
 
       - name: MCP protocol smoke
         run: node scripts/smoke-protocol.mjs
+
+      - name: Build CLI
+        run: npm run build:cli
+
+      - name: CLI smoke
+        run: npm run smoke:cli

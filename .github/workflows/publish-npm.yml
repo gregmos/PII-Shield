@@ -1,0 +1,89 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write  # required for npm provenance (Sigstore attestation)
+
+jobs:
+  publish:
+    # Only fire on tags shaped like v2.1.0 (matches existing release convention),
+    # OR when a human triggers manually via workflow_dispatch.
+    if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'v') }}
+    # MUST be ubuntu — Windows runners would skip `chmod +x` on dist/cli/bin.mjs
+    # in the build step, and Linux/macOS users installing the published tarball
+    # would get an unrunnable bin.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: nodejs-v2
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          # registry-url writes the correct .npmrc into HOME at runtime so
+          # `npm publish` authenticates with NODE_AUTH_TOKEN. Never commit a
+          # local .npmrc.
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+          cache-dependency-path: nodejs-v2/package-lock.json
+
+      # Mirrors test.yml flags: --ignore-scripts skips sharp's libvips
+      # postinstall (text-only NER uses a sharp shim), --legacy-peer-deps
+      # tolerates onnxruntime 1.22.0 + @xenova/transformers 2.17.2 peer drift.
+      - name: Install dev deps
+        run: npm ci --ignore-scripts --legacy-peer-deps
+
+      - name: Type-check
+        run: node node_modules/typescript/bin/tsc --noEmit
+
+      - name: MCP protocol smoke
+        run: node scripts/smoke-protocol.mjs
+
+      - name: Build CLI
+        run: npm run build:cli
+
+      - name: CLI smoke
+        run: npm run smoke:cli
+
+      # Print the actual file-set that would ship. Catches regressions in the
+      # `files:` array (e.g. if vite's output path for review-cli.html changes).
+      - name: Inspect tarball contents
+        run: npm pack --dry-run
+
+      # `release: published` fires again on edits to release notes — that
+      # would re-trigger publish and produce a noisy E403/EPUBLISHCONFLICT.
+      # Skip cleanly if this version is already on the registry.
+      - name: Check if version already published
+        id: check
+        shell: bash
+        run: |
+          V=$(node -p "require('./package.json').version")
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          if npm view "pii-shield@$V" version > /dev/null 2>&1; then
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::pii-shield@$V already on npm — skipping publish"
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npm
+        if: steps.check.outputs.already_published == 'false'
+        shell: bash
+        # Versions containing a hyphen (e.g. 2.2.0-beta.1) ship under `beta`
+        # dist-tag so they don't bump `latest`. Stable releases go to `latest`.
+        run: |
+          V="${{ steps.check.outputs.version }}"
+          if [[ "$V" == *-* ]]; then
+            npm publish --access public --tag beta
+          else
+            npm publish --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

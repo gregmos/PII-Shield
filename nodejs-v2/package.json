@@ -44,6 +44,7 @@
   "scripts": {
     "build": "node esbuild.config.mjs",
     "build:ui": "vite build",
+    "build:server": "node scripts/build-server.mjs",
     "build:plugin": "node plugin/build-plugin.mjs",
     "build:plugin:mac": "node plugin/build-plugin.mjs --skip-testkit && node plugin/build-mac-binary.mjs && node plugin/build-testkit.mjs",
     "build:cli": "node cli/build-cli.mjs",

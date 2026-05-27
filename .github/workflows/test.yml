@@ -37,6 +37,9 @@ jobs:
       - name: Type-check
         run: node node_modules/typescript/bin/tsc --noEmit
 
+      - name: Build server bundle
+        run: npm run build:server
+
       - name: MCP protocol smoke
         run: node scripts/smoke-protocol.mjs
 

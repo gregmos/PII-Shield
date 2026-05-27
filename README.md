@@ -96,9 +96,9 @@ Pick the `.mcpb` for your OS plus the skill bundle:
 
 | File | What | OS |
 |---|---|---|
-| [`pii-shield-v2.0.4-windows-linux.mcpb`](https://github.com/gregmos/PII-Shield/releases/download/v2.0.4/pii-shield-v2.0.4-windows-linux.mcpb) | ~700 KB — uses host Node | **Windows / Linux** |
-| [`pii-shield-v2.0.4-macos.mcpb`](https://github.com/gregmos/PII-Shield/releases/download/v2.0.4/pii-shield-v2.0.4-macos.mcpb) | ~83 MB — bundles Node 24.15.0 | **macOS** (arm64 + x64) |
-| [`pii-contract-analyze.skill`](https://github.com/gregmos/PII-Shield/releases/download/v2.0.4/pii-contract-analyze.skill) | ~25 KB — contract analysis skill | any |
+| [`pii-shield-v2.1.0-windows-linux.mcpb`](https://github.com/gregmos/PII-Shield/releases/download/v2.1.0/pii-shield-v2.1.0-windows-linux.mcpb) | ~700 KB — uses host Node | **Windows / Linux** |
+| [`pii-shield-v2.1.0-macos.mcpb`](https://github.com/gregmos/PII-Shield/releases/download/v2.1.0/pii-shield-v2.1.0-macos.mcpb) | ~83 MB — bundles Node 24.15.0 | **macOS** (arm64 + x64) |
+| [`pii-contract-analyze.skill`](https://github.com/gregmos/PII-Shield/releases/download/v2.1.0/pii-contract-analyze.skill) | ~25 KB — contract analysis skill | any |
 
 ### Step 2 — install the MCP extension
 
@@ -319,8 +319,8 @@ PII-Shield/
 | Install panel says "ZIP not found" | Click the panel's **Download model** button first. The browser saves to `~/Downloads` by default; PII Shield also scans OneDrive variants, Desktop, Documents. If your browser saves elsewhere, set **Settings → Extensions → PII Shield → Model Downloads Folder** and click Install again. |
 | Install panel doesn't appear at all | The panel needs Claude Desktop ≥ 0.10 (renders `ui://` resources). On older hosts, ask Claude to call `start_model_setup` directly, or check `~/.pii_shield/audit/pii_shield_server.log`. |
 | `Unsupported model IR version: 9` | Old `onnxruntime-node` cached. Delete `~/.pii_shield/deps/` — next run reinstalls with the pinned 1.22.0 triplet. |
-| `Cannot find module '../build/Release/sharp-*.node'` | `sharp` has no native addon for your platform. PII Shield's shim intercepts `sharp` loads (text-only NER doesn't use it). If you still see this, you're on an older build — upgrade to v2.0.4. |
-| macOS: server immediately disconnects after install | Make sure you installed `pii-shield-v2.0.4-macos.mcpb`, not `windows-linux`. The Mac variant bundles its own Node to dodge a Claude Desktop darwin host-runtime launch bug. |
+| `Cannot find module '../build/Release/sharp-*.node'` | `sharp` has no native addon for your platform. PII Shield's shim intercepts `sharp` loads (text-only NER doesn't use it). If you still see this, you're on an older build — upgrade to v2.1.0. |
+| macOS: server immediately disconnects after install | Make sure you installed `pii-shield-v2.1.0-macos.mcpb`, not `windows-linux`. The Mac variant bundles its own Node to dodge a Claude Desktop darwin host-runtime launch bug. |
 | Review panel blank | Check `~/.pii_shield/audit/pii_shield_server.log` for MCP Apps resource errors. Claude Desktop version < 0.10 doesn't render `ui://` resources. |
 | Tools not appearing | Restart Claude Desktop or send any message — the tool list refreshes on reconnect. |
 

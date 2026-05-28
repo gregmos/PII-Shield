@@ -340,7 +340,7 @@ PII Shield builds on excellent open-source projects:
 - **[GLiNER](https://github.com/urchade/GLiNER)** + [`knowledgator/gliner-pii-base-v1.0`](https://huggingface.co/knowledgator/gliner-pii-base-v1.0) — zero-shot NER backbone.
 - **[onnxruntime-node](https://github.com/microsoft/onnxruntime)** — the CPU inference engine.
 - **[`@xenova/transformers`](https://github.com/xenova/transformers.js)** — tokenizer + HF weights loader on top of ONNX Runtime.
-- **[docx](https://github.com/dolanmiu/docx)** + **[jszip](https://stuk.github.io/jszip/)** + **[@ansonlai/docx-redline-js](https://github.com/ansonlai/docx-redline-js)** — pure-JS `.docx` read / write / track-changes.
+- **[docx](https://github.com/dolanmiu/docx)** + **[jszip](https://stuk.github.io/jszip/)** + **[@adeu/core](https://github.com/dealfluence/adeu)** — pure-JS `.docx` read / write / track-changes.
 - **[Claude Desktop](https://claude.ai/download)** + the [Model Context Protocol](https://modelcontextprotocol.io) — host runtime and tool surface.
 
 ## Author

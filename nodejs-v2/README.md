@@ -1,6 +1,6 @@
 # pii-shield
 
-> Anonymize PII in legal documents locally. Node.js CLI — 33 entity types via GLiNER NER + EU/UK/US patterns. Reads `.pdf` / `.docx` / `.txt`. Pure offline, no Python.
+> Anonymize PII in legal documents locally. Node.js CLI — 35 entity types via GLiNER NER + EU/UK/US/FI patterns. Reads `.pdf` / `.docx` / `.txt`. Pure offline, no Python.
 
 [![npm](https://img.shields.io/npm/v/pii-shield.svg?style=flat-square)](https://www.npmjs.com/package/pii-shield) [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/gregmos/PII-Shield/blob/main/LICENSE) [![Node](https://img.shields.io/badge/node-22%2B-339933.svg?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 

@@ -2,7 +2,7 @@
   "name": "pii-shield",
   "version": "2.2.0",
   "type": "module",
-  "description": "Anonymize PII in legal documents locally — Node.js CLI (GLiNER NER, EU/UK/US patterns, .docx/.pdf/.txt, HITL review). MCP plugin distributed separately as a .mcpb.",
+  "description": "Anonymize PII in legal documents locally — Node.js CLI (GLiNER NER, EU/UK/US/FI patterns, .docx/.pdf/.txt, HITL review). MCP plugin distributed separately as a .mcpb.",
   "keywords": [
     "pii",
     "anonymization",

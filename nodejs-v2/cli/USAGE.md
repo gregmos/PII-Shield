@@ -959,7 +959,7 @@ tail -f ~/.pii_shield/audit/ner_init.log # NER bootstrap detail
 
 ## Detected entity types
 
-33 types in total. The full authoritative list is `nodejs-v2/src/engine/entity-types.ts` (`SUPPORTED_ENTITIES`).
+35 types in total. The full authoritative list is `nodejs-v2/src/engine/entity-types.ts` (`SUPPORTED_ENTITIES`).
 
 ### NER-based (GLiNER zero-shot)
 
@@ -983,7 +983,7 @@ tail -f ~/.pii_shield/audit/ner_init.log # NER bootstrap detail
 
 ### Country-specific
 
-`DE_TAX_ID`, `DE_SOCIAL_SECURITY`, `FR_NIR`, `FR_CNI`, `IT_FISCAL_CODE`, `IT_VAT`, `ES_DNI`, `ES_NIE`, `CY_TIC`, `CY_ID_CARD`.
+`DE_TAX_ID`, `DE_SOCIAL_SECURITY`, `FR_NIR`, `FR_CNI`, `IT_FISCAL_CODE`, `IT_VAT`, `ES_DNI`, `ES_NIE`, `CY_TIC`, `CY_ID_CARD`, `FI_HETU`, `FI_BUSINESS_ID`.
 
 To list at runtime in JSON: `pii-shield scan small.txt --json | jq '.entities[].type' | sort -u` (assuming sample file has at least one of each).
 

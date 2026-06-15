@@ -55,13 +55,13 @@ See `pii-shield --help <command>` or the [full CLI manual](https://github.com/gr
 
 ## What it detects
 
-33 entity types — 4 NER classes (`PERSON`, `ORGANIZATION`, `LOCATION`, `NRP`) plus 29 pattern-based recognizers:
+35 entity types — 4 NER classes (`PERSON`, `ORGANIZATION`, `LOCATION`, `NRP`) plus 31 pattern-based recognizers:
 
 - **Generic**: email, phone, URL, IP, ID doc, credit card, IBAN, crypto, medical licence
 - **US**: SSN, passport, driver licence
 - **UK**: NIN, NHS, passport, CRN, driving licence
 - **EU-wide**: VAT, passport
-- **Country-specific**: DE (tax ID, social security), FR (NIR, CNI), IT (fiscal code, VAT), ES (DNI, NIE), CY (TIC, ID card)
+- **Country-specific**: DE (tax ID, social security), FR (NIR, CNI), IT (fiscal code, VAT), ES (DNI, NIE), CY (TIC, ID card), FI (henkilötunnus, Y-tunnus)
 
 Authoritative list: [`src/engine/entity-types.ts`](https://github.com/gregmos/PII-Shield/blob/main/nodejs-v2/src/engine/entity-types.ts).
 

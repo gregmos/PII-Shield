@@ -245,9 +245,9 @@ Authoritative list is `nodejs-v2/src/engine/entity-types.ts` (`SUPPORTED_ENTITIE
 `EU_VAT`, `EU_PASSPORT`
 
 **Country-specific**:
-`DE_TAX_ID`, `DE_SOCIAL_SECURITY`, `FR_NIR`, `FR_CNI`, `IT_FISCAL_CODE`, `IT_VAT`, `ES_DNI`, `ES_NIE`, `CY_TIC`, `CY_ID_CARD`
+`DE_TAX_ID`, `DE_SOCIAL_SECURITY`, `FR_NIR`, `FR_CNI`, `IT_FISCAL_CODE`, `IT_VAT`, `ES_DNI`, `ES_NIE`, `CY_TIC`, `CY_ID_CARD`, `FI_HETU`, `FI_BUSINESS_ID`
 
-33 types total (4 NER + 29 pattern-based).
+35 types total (4 NER + 31 pattern-based).
 
 ## Logs
 
